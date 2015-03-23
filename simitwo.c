@@ -28,11 +28,12 @@ int main(int argc, char *argv[])
 {
     int i, j, *ra, *pa;
     acixs *pai;
-    int paiszc=0; /* cumulative counter for pai */
     int pgbuf=GBUF;
     int *pca=malloc(pgbuf*sizeof(int));
+    int *apszs=malloc((1+pgbuf)*sizeof(int)); /* array of pai sizes */
     int pcpc=0; /* parent child pair counter */
     pca[pcpc]=IPSZ;
+    apszs[0]=0;
 
     int pszc, gbuf;
 
@@ -61,8 +62,6 @@ int main(int argc, char *argv[])
                 pai[pszc].ca=malloc(pai[pszc].casz*sizeof(int));
                 pszc++;
             }
-        paiszc +=pszc;
-        printf("%d ", paiszc);
 
         free(pa);
         int idx;
@@ -84,12 +83,18 @@ int main(int argc, char *argv[])
         if(pcpc==pgbuf) {
             pgbuf += GBUF;
             pca=realloc(pca, pgbuf*sizeof(int));
+            apszs=realloc(apszs, (pgbuf+1)*sizeof(int));
         }
         pca[pcpc]=pszc;
+        apszs[pcpc]=apszs[pcpc-1]+pszc;
     }
     putchar('\n');
     printf("Pop size %d took %d gens to coalesce backwards to 1 MRCA.\n", IPSZ, pcpc); 
+    for(i=0;i<=pcpc;++i) 
+        printf("%d ", apszs[i]);
+    printf("\n"); 
 
     free(pca);
+    free(apszs);
     return 0;
 }
