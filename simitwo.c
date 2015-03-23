@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define IPSZ 18 /* initial size of pop */
+#define IPSZ 10 /* initial size of pop */
 #define GBUF 2
 
 typedef struct
@@ -12,11 +12,23 @@ typedef struct
     int casz;
 } acixs;
 
+void printpaip(acixs *pai, int pszc) /* print a part of the pai container*/
+{
+    int i, j;
+    for(i=0;i<pszc;++i) {
+        printf("%d) parent %d: ", i, pai[i].il);
+        for(j=0; j<pai[i].casz; j++)
+            printf("%d ", pai[i].ca[j]);
+        printf("\n"); 
+    }
+    printf("----------------------------\n"); 
+}
 
 int main(int argc, char *argv[])
 {
     int i, j, *ra, *pa;
     acixs *pai;
+    int paiszc=0; /* cumulative counter for pai */
     int pgbuf=GBUF;
     int *pca=malloc(pgbuf*sizeof(int));
     int pcpc=0; /* parent child pair counter */
@@ -49,6 +61,8 @@ int main(int argc, char *argv[])
                 pai[pszc].ca=malloc(pai[pszc].casz*sizeof(int));
                 pszc++;
             }
+        paiszc +=pszc;
+        printf("%d ", paiszc);
 
         free(pa);
         int idx;
@@ -60,14 +74,7 @@ int main(int argc, char *argv[])
         }
 
         free(ra);
-
-        for(i=0;i<pszc;++i) {
-            printf("%d) parent %d: ", i, pai[i].il);
-            for(j=0; j<pai[i].casz; j++)
-                printf("%d ", pai[i].ca[j]);
-            printf("\n"); 
-        }
-        printf("----------------------------\n"); 
+        printpaip(pai, pszc);
 
         for(i=0;i<pszc;++i)
             free(pai[i].ca);
@@ -80,6 +87,7 @@ int main(int argc, char *argv[])
         }
         pca[pcpc]=pszc;
     }
+    putchar('\n');
     printf("Pop size %d took %d gens to coalesce backwards to 1 MRCA.\n", IPSZ, pcpc); 
 
     free(pca);
