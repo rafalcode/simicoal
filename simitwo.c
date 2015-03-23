@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define IPSZ 22 /* initial size of pop */
+#define IPSZ 18 /* initial size of pop */
 #define GBUF 2
 
 typedef struct
@@ -17,7 +17,6 @@ int main(int argc, char *argv[])
 {
     int i, j, *ra, *pa;
     acixs *pai;
-    int npcps=10; /* number of parent child pairs */
     int pgbuf=GBUF;
     int *pca=malloc(pgbuf*sizeof(int));
     int pcpc=0; /* parent child pair counter */
@@ -81,6 +80,7 @@ int main(int argc, char *argv[])
         }
         pca[pcpc]=pszc;
     }
+    printf("Pop size %d took %d gens to coalesce backwards to 1 MRCA.\n", IPSZ, pcpc); 
 
     free(pca);
     return 0;
