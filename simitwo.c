@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define IPSZ 10 /* initial size of pop */
+#define IPSZ 14 /* initial size of pop */
 #define GBUF 2
 
 typedef struct
