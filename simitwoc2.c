@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
+#include <cairo/cairo.h>
 
-#define IPSZ 16 /* initial size of pop */
+#define IPSZ 160 /* initial size of pop */
 #define GBUF 2
 
 typedef struct
@@ -10,6 +12,7 @@ typedef struct
     int il;
     int *ca;
     int casz;
+    float hp, vp;
 } acixs;
 
 void printpaip(acixs *pai, int start, int end) /* print a part of the pai container*/
@@ -31,6 +34,7 @@ void printpaip2(acixs *pai, int *apszs, int sz) /* print a part of the pai conta
 				for(i=apszs[k]; i<apszs[k+1]; ++i) {
 						printf("%d) parent %d: ", i, pai[i].il);
 						for(j=0; j<pai[i].casz; j++)
+								//printf("%d ", (k==0)? pai[i].ca[j] : pai[i].ca[j]+apszs[k-1]);
 								printf("%d ", pai[i].ca[j]);
 						printf("\n"); 
 				}
@@ -52,6 +56,61 @@ void printpaip3(acixs *pai, int *apszs, int sz) /* print a part of the pai conta
         }
         printf("\n"); 
     }
+}
+
+void print2png(int width, int height, acixs *pai, int *apszs, int sz)
+{
+    int i, j, k;
+    cairo_surface_t *surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
+    cairo_t *cr = cairo_create (surface);
+    cairo_rectangle (cr, 0, 0, width, height); /* arg explan: topleftcorner and size of shape  */
+    cairo_set_source_rgba (cr, 0, 0, 0, 0.95); /*  final number is alpha, 1.0 is opaque */
+    cairo_fill (cr);
+
+    /* hpos first because they are easy */
+    float vbarsz=(float)width/(sz+1);
+    float *hpos=calloc((sz+1), sizeof(float));
+    hpos[0]=(float)vbarsz/2.;
+    for(i=1;i<(sz+1);++i) 
+        hpos[i]=hpos[i-1]+vbarsz;
+
+    /* now vpos */
+    float hbarsz;
+    for(k=0;k<sz;++k) {
+        hbarsz=(float)height/(apszs[k+1]-apszs[k]);
+        pai[apszs[k]].vp=(float)hbarsz/2.;
+        pai[apszs[k]].hp=hpos[k+1];
+        for(i=apszs[k]+1; i<apszs[k+1]; ++i) {
+            pai[i].vp=pai[i-1].vp+hbarsz;
+            pai[i].hp=hpos[k+1];
+        }
+    }
+
+    cairo_set_source_rgba(cr, 1.0, 0.6, 1.0, 0.9);
+    for(k=0;k<sz;++k) {
+        for(i=apszs[k]; i<apszs[k+1]; ++i) {
+            printf("(%2.2f,%2.2f) ", pai[i].hp, pai[i].vp);
+            cairo_arc(cr, pai[i].hp, pai[i].vp, 2, 0, 2 * M_PI);
+            cairo_fill(cr);
+        }
+        printf("\n"); 
+    }
+
+    cairo_set_source_rgba(cr, 0.65, 0.8, 0.45, 0.6);
+    for(k=1;k<sz;++k) {
+        for(i=apszs[k]; i<apszs[k+1]; ++i) {
+            for(j=0; j<pai[i].casz; ++j) {
+                cairo_move_to(cr, pai[i].hp, pai[i].vp);
+                cairo_line_to(cr, pai[pai[i].ca[j]].hp, pai[pai[i].ca[j]].vp);
+                cairo_stroke(cr);
+            }
+        }
+    }
+
+    cairo_surface_write_to_png (surface, "simidots.png");
+    cairo_destroy (cr);
+    cairo_surface_destroy (surface);
+    free(hpos);
 }
 
 int main(int argc, char *argv[])
@@ -96,7 +155,9 @@ int main(int argc, char *argv[])
             idx=0;
             for(j=0; j<pca[pcpc]; j++)
                 if(pai[i].il==ra[j])
-                    pai[i].ca[idx++]=j;
+                    pai[i].ca[idx++]=(pcpc>0)? j+apszs[pcpc-1] : j;
+            /* ref. indices for a parent's children: How has it come to this you may ask? Well pcpc==0 is the initial children of the generation,
+             * and they must be treated seperately, they are not parents. And pcpc==1? well shouldn make a difference. */
         }
 
         free(ra);
@@ -110,8 +171,8 @@ int main(int argc, char *argv[])
         pca[pcpc]=apszs[pcpc]-apszs[pcpc-1];
         apszs[pcpc+1]=apszs[pcpc];
     }
-    printpaip3(pai, apszs, pcpc);
-    putchar('\n');
+    printpaip2(pai, apszs, pcpc);
+    print2png(640, 480, pai, apszs, pcpc);
     printf("Pop size %d took %d gens to coalesce backwards to 1 MRCA.\n", IPSZ, pcpc); 
     for(i=0;i<=pcpc;++i) 
         printf("%2d ", pca[i]);

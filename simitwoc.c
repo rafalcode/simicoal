@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
+#include <cairo/cairo.h>
 
 #define IPSZ 16 /* initial size of pop */
 #define GBUF 2
@@ -52,6 +54,49 @@ void printpaip3(acixs *pai, int *apszs, int sz) /* print a part of the pai conta
         }
         printf("\n"); 
     }
+}
+
+void print2png(int width, int height, int *apszs, int sz)
+{
+    int i, k;
+    cairo_surface_t *surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
+    cairo_t *cr = cairo_create (surface);
+    cairo_rectangle (cr, 0, 0, width, height); /* arg explan: topleftcorner and size of shape  */
+    cairo_set_source_rgba (cr, 0, 0, 0, 0.95); /*  final number is alpha, 1.0 is opaque */
+    cairo_fill (cr);
+
+    /* hpos first because they are easy */
+    float vbarsz=(float)width/(sz+1);
+    float *hpos=calloc((sz+1), sizeof(float));
+    hpos[0]=(float)vbarsz/2.;
+    for(i=1;i<(sz+1);++i) 
+        hpos[i]=hpos[i-1]+vbarsz;
+
+    /* now vpos */
+    float hbarsz;
+    float *vpos=calloc(apszs[sz], sizeof(float));
+    for(k=0;k<sz;++k) {
+        hbarsz=(float)height/(apszs[k+1]-apszs[k]);
+        vpos[apszs[k]]=(float)hbarsz/2.;
+        for(i=apszs[k]+1; i<apszs[k+1]; ++i)
+            vpos[i]=vpos[i-1]+hbarsz;
+    }
+
+    cairo_set_source_rgba(cr, 1.0, 0.6, 1.0, 0.9);
+    for(k=0;k<sz;++k) {
+        for(i=apszs[k]; i<apszs[k+1]; ++i) {
+            printf("(%2.2f,%2.2f) ", hpos[k+1], vpos[i]);
+            cairo_arc(cr, hpos[k+1], vpos[i], 2, 0, 2 * M_PI);
+            cairo_fill(cr);
+        }
+        printf("\n"); 
+    }
+
+    cairo_surface_write_to_png (surface, "simidots.png");
+    cairo_destroy (cr);
+    cairo_surface_destroy (surface);
+    free(hpos);
+    free(vpos);
 }
 
 int main(int argc, char *argv[])
@@ -111,7 +156,7 @@ int main(int argc, char *argv[])
         apszs[pcpc+1]=apszs[pcpc];
     }
     printpaip3(pai, apszs, pcpc);
-    putchar('\n');
+    print2png(640, 480, apszs, pcpc);
     printf("Pop size %d took %d gens to coalesce backwards to 1 MRCA.\n", IPSZ, pcpc); 
     for(i=0;i<=pcpc;++i) 
         printf("%2d ", pca[i]);
