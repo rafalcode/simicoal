@@ -1,0 +1,395 @@
+==30103== Memcheck, a memory error detector
+==30103== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
+==30103== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
+==30103== Command: ./simitwo2
+==30103== 
+--30103-- Valgrind options:
+--30103--    --suppressions=/usr/lib/valgrind/debian-libc6-dbg.supp
+--30103--    --leak-check=full
+--30103--    --show-reachable=yes
+--30103--    --track-origins=yes
+--30103--    -v
+--30103-- Contents of /proc/version:
+--30103--   Linux version 3.8.11 (chrome-bot@build58-m2) (gcc version 4.9.x-google 20140827 (prerelease) (4.9.1_cos_gg_2f9796c_4.9.1-r82) ) #1 SMP Sat Mar 7 08:13:46 PST 2015
+--30103-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--30103-- Page sizes: currently 4096, max supported 4096
+--30103-- Valgrind library directory: /usr/lib/valgrind
+--30103-- Reading syms from /home/nutria/rafalcode/simicoal/simitwo2 (0x400000)
+--30103-- Reading syms from /lib/x86_64-linux-gnu/ld-2.15.so (0x4000000)
+--30103--   Considering /lib/x86_64-linux-gnu/ld-2.15.so ..
+--30103--   .. CRC mismatch (computed 5dfd6448 wanted 0e0290cc)
+--30103--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.15.so ..
+--30103--   .. CRC is valid
+--30103-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux (0x38000000)
+--30103--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--30103--   .. CRC mismatch (computed fd32bc40 wanted 1b1bde8c)
+--30103--    object doesn't have a symbol table
+--30103--    object doesn't have a dynamic symbol table
+--30103-- Reading suppressions file: /usr/lib/valgrind/debian-libc6-dbg.supp
+--30103-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==30103== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-30103-by-nutria-on-???
+==30103== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-30103-by-nutria-on-???
+==30103== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-30103-by-nutria-on-???
+==30103== 
+==30103== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==30103== don't want to do, unless you know exactly what you're doing,
+==30103== or are doing some strange experiment):
+==30103==   /usr/lib/valgrind/../../bin/vgdb --pid=30103 ...command...
+==30103== 
+==30103== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==30103==   /path/to/gdb ./simitwo2
+==30103== and then give GDB the following command
+==30103==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=30103
+==30103== --pid is optional if only one valgrind process is running
+==30103== 
+--30103-- REDIR: 0x40189e0 (strlen) redirected to 0x380625c7 (???)
+--30103-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so (0x4a25000)
+--30103--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--30103--   .. CRC mismatch (computed 8f05ac98 wanted c6d0ab1a)
+--30103--    object doesn't have a symbol table
+--30103-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so (0x4c27000)
+--30103--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--30103--   .. CRC mismatch (computed fc059af4 wanted ffc668e8)
+--30103--    object doesn't have a symbol table
+--30103-- REDIR: 0x4018850 (index) redirected to 0x4c2bc60 (index)
+--30103-- REDIR: 0x40188d0 (strcmp) redirected to 0x4c2cc20 (strcmp)
+--30103-- Reading syms from /lib/x86_64-linux-gnu/libc-2.15.so (0x4e32000)
+--30103--   Considering /lib/x86_64-linux-gnu/libc-2.15.so ..
+--30103--   .. CRC mismatch (computed 350d2950 wanted 854673bd)
+--30103--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.15.so ..
+--30103--   .. CRC is valid
+--30103-- REDIR: 0x4ebe140 (strcasecmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--30103-- REDIR: 0x4eba4e0 (strnlen) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--30103-- REDIR: 0x4ec0410 (strncasecmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--30103-- REDIR: 0x4ebbed0 (__GI_strrchr) redirected to 0x4c2ba80 (__GI_strrchr)
+--30103-- REDIR: 0x4eb41f0 (malloc) redirected to 0x4c2b660 (malloc)
+--30103-- REDIR: 0x4eb55c0 (calloc) redirected to 0x4c29cf0 (calloc)
+--30103-- REDIR: 0x4eb48e0 (realloc) redirected to 0x4c2b730 (realloc)
+--30103-- REDIR: 0x4eb4800 (free) redirected to 0x4c2a7c0 (free)
+--30103-- REDIR: 0x4ec4010 (strchrnul) redirected to 0x4c2e3b0 (strchrnul)
+--30103-- REDIR: 0x4eba400 (__GI_strlen) redirected to 0x4c2bfc0 (__GI_strlen)
+==30103== Invalid write of size 4
+==30103==    at 0x400C42: main (simitwo2.c:81)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== Invalid read of size 4
+==30103==    at 0x400958: main (simitwo2.c:52)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== Invalid read of size 4
+==30103==    at 0x4009A2: main (simitwo2.c:56)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== Invalid read of size 4
+==30103==    at 0x4009CE: main (simitwo2.c:57)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== Invalid read of size 4
+==30103==    at 0x400A08: main (simitwo2.c:58)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== Invalid read of size 4
+==30103==    at 0x400A32: main (simitwo2.c:58)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== Invalid read of size 4
+==30103==    at 0x400A6E: main (simitwo2.c:59)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== Invalid write of size 4
+==30103==    at 0x400A73: main (simitwo2.c:59)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== Invalid read of size 4
+==30103==    at 0x400B4E: main (simitwo2.c:64)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== Invalid read of size 4
+==30103==    at 0x400B76: main (simitwo2.c:72)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== Conditional jump or move depends on uninitialised value(s)
+==30103==    at 0x400C56: main (simitwo2.c:40)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== Conditional jump or move depends on uninitialised value(s)
+==30103==    at 0x4E7C1A1: vfprintf (vfprintf.c:1629)
+==30103==    by 0x4E85588: printf (printf.c:35)
+==30103==    by 0x400CAB: main (simitwo2.c:86)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== Use of uninitialised value of size 8
+==30103==    at 0x4E7A49B: _itoa_word (_itoa.c:195)
+==30103==    by 0x4E7C4E7: vfprintf (vfprintf.c:1629)
+==30103==    by 0x4E85588: printf (printf.c:35)
+==30103==    by 0x400CAB: main (simitwo2.c:86)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== Conditional jump or move depends on uninitialised value(s)
+==30103==    at 0x4E7A4A5: _itoa_word (_itoa.c:195)
+==30103==    by 0x4E7C4E7: vfprintf (vfprintf.c:1629)
+==30103==    by 0x4E85588: printf (printf.c:35)
+==30103==    by 0x400CAB: main (simitwo2.c:86)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== Conditional jump or move depends on uninitialised value(s)
+==30103==    at 0x4E7C1A1: vfprintf (vfprintf.c:1629)
+==30103==    by 0x4E85588: printf (printf.c:35)
+==30103==    by 0x400CED: main (simitwo2.c:89)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== Use of uninitialised value of size 8
+==30103==    at 0x4E7A49B: _itoa_word (_itoa.c:195)
+==30103==    by 0x4E7C4E7: vfprintf (vfprintf.c:1629)
+==30103==    by 0x4E85588: printf (printf.c:35)
+==30103==    by 0x400CED: main (simitwo2.c:89)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== Conditional jump or move depends on uninitialised value(s)
+==30103==    at 0x4E7A4A5: _itoa_word (_itoa.c:195)
+==30103==    by 0x4E7C4E7: vfprintf (vfprintf.c:1629)
+==30103==    by 0x4E85588: printf (printf.c:35)
+==30103==    by 0x400CED: main (simitwo2.c:89)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== Conditional jump or move depends on uninitialised value(s)
+==30103==    at 0x400D4A: main (simitwo2.c:92)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+0) parent 1: 5 
+1) parent 2: 8 
+2) parent 3: 1 6 
+3) parent 5: 9 
+4) parent 7: 2 3 7 
+5) parent 8: 0 
+6) parent 9: 4 
+----------------------------
+7) parent 2: 2 
+8) parent 3: 0 3 
+9) parent 4: 1 6 
+10) parent 6: 4 5 
+----------------------------
+
+Pop size 10 took 2 gens to coalesce backwards to 1 MRCA.
+10  7 -7 
+ 0  7  0 
+==30103== 
+==30103== HEAP SUMMARY:
+==30103==     in use at exit: 68 bytes in 11 blocks
+==30103==   total heap usage: 25 allocs, 14 frees, 1,264 bytes allocated
+==30103== 
+==30103== Searching for pointers to 11 not-freed blocks
+==30103== Checked 71,096 bytes
+==30103== 
+==30103== 68 bytes in 11 blocks are definitely lost in loss record 1 of 1
+==30103==    at 0x4C2B6CD: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400A58: main (simitwo2.c:58)
+==30103== 
+==30103== LEAK SUMMARY:
+==30103==    definitely lost: 68 bytes in 11 blocks
+==30103==    indirectly lost: 0 bytes in 0 blocks
+==30103==      possibly lost: 0 bytes in 0 blocks
+==30103==    still reachable: 0 bytes in 0 blocks
+==30103==         suppressed: 0 bytes in 0 blocks
+==30103== 
+==30103== ERROR SUMMARY: 44 errors from 19 contexts (suppressed: 2 from 2)
+==30103== 
+==30103== 1 errors in context 1 of 19:
+==30103== Conditional jump or move depends on uninitialised value(s)
+==30103==    at 0x400D4A: main (simitwo2.c:92)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== 
+==30103== 1 errors in context 2 of 19:
+==30103== Conditional jump or move depends on uninitialised value(s)
+==30103==    at 0x4E7A4A5: _itoa_word (_itoa.c:195)
+==30103==    by 0x4E7C4E7: vfprintf (vfprintf.c:1629)
+==30103==    by 0x4E85588: printf (printf.c:35)
+==30103==    by 0x400CED: main (simitwo2.c:89)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== 
+==30103== 1 errors in context 3 of 19:
+==30103== Use of uninitialised value of size 8
+==30103==    at 0x4E7A49B: _itoa_word (_itoa.c:195)
+==30103==    by 0x4E7C4E7: vfprintf (vfprintf.c:1629)
+==30103==    by 0x4E85588: printf (printf.c:35)
+==30103==    by 0x400CED: main (simitwo2.c:89)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== 
+==30103== 1 errors in context 4 of 19:
+==30103== Conditional jump or move depends on uninitialised value(s)
+==30103==    at 0x4E7C1A1: vfprintf (vfprintf.c:1629)
+==30103==    by 0x4E85588: printf (printf.c:35)
+==30103==    by 0x400CED: main (simitwo2.c:89)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== 
+==30103== 1 errors in context 5 of 19:
+==30103== Conditional jump or move depends on uninitialised value(s)
+==30103==    at 0x4E7A4A5: _itoa_word (_itoa.c:195)
+==30103==    by 0x4E7C4E7: vfprintf (vfprintf.c:1629)
+==30103==    by 0x4E85588: printf (printf.c:35)
+==30103==    by 0x400CAB: main (simitwo2.c:86)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== 
+==30103== 1 errors in context 6 of 19:
+==30103== Use of uninitialised value of size 8
+==30103==    at 0x4E7A49B: _itoa_word (_itoa.c:195)
+==30103==    by 0x4E7C4E7: vfprintf (vfprintf.c:1629)
+==30103==    by 0x4E85588: printf (printf.c:35)
+==30103==    by 0x400CAB: main (simitwo2.c:86)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== 
+==30103== 1 errors in context 7 of 19:
+==30103== Conditional jump or move depends on uninitialised value(s)
+==30103==    at 0x4E7C1A1: vfprintf (vfprintf.c:1629)
+==30103==    by 0x4E85588: printf (printf.c:35)
+==30103==    by 0x400CAB: main (simitwo2.c:86)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== 
+==30103== 1 errors in context 8 of 19:
+==30103== Conditional jump or move depends on uninitialised value(s)
+==30103==    at 0x400C56: main (simitwo2.c:40)
+==30103==  Uninitialised value was created by a heap allocation
+==30103==    at 0x4C2B7B2: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x400BE3: main (simitwo2.c:78)
+==30103== 
+==30103== 
+==30103== 1 errors in context 9 of 19:
+==30103== Invalid read of size 4
+==30103==    at 0x400B76: main (simitwo2.c:72)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== 
+==30103== 1 errors in context 10 of 19:
+==30103== Invalid write of size 4
+==30103==    at 0x400C42: main (simitwo2.c:81)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== 
+==30103== 4 errors in context 11 of 19:
+==30103== Invalid write of size 4
+==30103==    at 0x400A73: main (simitwo2.c:59)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== 
+==30103== 4 errors in context 12 of 19:
+==30103== Invalid read of size 4
+==30103==    at 0x400A6E: main (simitwo2.c:59)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== 
+==30103== 4 errors in context 13 of 19:
+==30103== Invalid read of size 4
+==30103==    at 0x400A32: main (simitwo2.c:58)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== 
+==30103== 4 errors in context 14 of 19:
+==30103== Invalid read of size 4
+==30103==    at 0x400A08: main (simitwo2.c:58)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== 
+==30103== 4 errors in context 15 of 19:
+==30103== Invalid read of size 4
+==30103==    at 0x4009CE: main (simitwo2.c:57)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== 
+==30103== 4 errors in context 16 of 19:
+==30103== Invalid read of size 4
+==30103==    at 0x4009A2: main (simitwo2.c:56)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== 
+==30103== 4 errors in context 17 of 19:
+==30103== Invalid read of size 4
+==30103==    at 0x400958: main (simitwo2.c:52)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+==30103== 
+==30103== 5 errors in context 18 of 19:
+==30103== Invalid read of size 4
+==30103==    at 0x400B4E: main (simitwo2.c:64)
+==30103==  Address 0x51f1098 is 0 bytes after a block of size 8 alloc'd
+==30103==    at 0x4C29DB4: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30103==    by 0x40080E: main (simitwo2.c:33)
+==30103== 
+--30103-- 
+--30103-- used_suppression:      2 dl-hack3-cond-1
+==30103== 
+==30103== ERROR SUMMARY: 44 errors from 19 contexts (suppressed: 2 from 2)
