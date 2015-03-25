@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-g -Wall
 SPECLIBS=-lcairo -lm
-EXECUTABLES=simirnds simitwo simitwo2 simitwoc simitwoc2
+EXECUTABLES=simirnds simitwo simitwo2 simitwoc simitwoc2 simi3
 
 # the first program simply generates a matrix of random integers
 simirnds: simirnds.c
@@ -19,8 +19,13 @@ simitwo2: simitwo2.c
 simitwoc: simitwoc.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 
-# simitwo2 with cairo this time
+# simitwoc2: working fine now with cairo. Except it is very rough.
 simitwoc2: simitwoc2.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+
+# Copied from simitwoc2.c, trying to clean up the roughness.
+# the spatial ordering driving me crazy
+simi3: simi3.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 
 .PHONY: clean
